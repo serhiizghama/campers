@@ -4,15 +4,20 @@ import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } fro
 import storage from 'redux-persist/lib/storage';
 import { persistStore } from 'redux-persist';
 
+import filtersReducer from './filters/slice';
+import campersReducer from './campers/slice';
+import favoritesReducer from './favorites/slice';
 
 const rootReducer = combineReducers({
-
+	filters: filtersReducer,
+	campers: campersReducer,
+	favorites: favoritesReducer,
 });
 
 const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: [],
+	whitelist: ['favorites'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -27,4 +32,4 @@ export const store = configureStore({
 		}),
 });
 
-export const persister = persistStore(store);
+export const persistor = persistStore(store);

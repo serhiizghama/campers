@@ -7,12 +7,12 @@ import 'normalize.css';
 import './index.css';
 
 import App from './App.jsx';
-import { store, persister } from './redux/store.js';
+import { store, persistor } from './redux/store.js';
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
 		<Provider store={store}>
-			<PersistGate loading={null} persistor={persister}>
+			<PersistGate loading={null} persistor={persistor}>
 				<BrowserRouter>
 					<App />
 				</BrowserRouter>

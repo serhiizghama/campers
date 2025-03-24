@@ -1,0 +1,28 @@
+.button {
+    padding: 16px 32px;
+    border-radius: 200px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    min-width: 166px;
+    text-align: center;
+}
+
+.primary:hover {
+    background-color: var(--button-hover);
+}
+
+.primary {
+    background-color: var(--button);
+    color: var(--white);
+}
+
+.secondary {
+    background-color: transparent;
+    color: var(--main);
+    border: 1px solid var(--gray-light);
+}
+
+.secondary:hover {
+    border-color: var(--button-hover);
+}
