@@ -1,0 +1,52 @@
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    color: var(--main);
+}
+
+.headerFirstRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.headerSecondRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.headerSecondRowItem {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.headerSecondRowItem:first-child {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.priceHolder {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    color: var(--main);
+    display: inline-block;
+}
+
+.detailsPagePrice {
+    margin-top: 16px;
+}
+
+.ratingIcon {
+    color: var(--rating);
+}

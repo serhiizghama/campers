@@ -1,4 +1,6 @@
 import Button from '@/components/Button';
+import Spinner from '@/components/Spinner';
+import ErrorMessage from '@/components/ErrorMessage';
 
 import useCampersList from './useCampersList';
 import CampersListItem from './CampersListItem';
@@ -9,9 +11,18 @@ const CampersList = () => {
 		visibleCampers,
 		loadMoreButtonVisibility,
 		handleLoadMore,
-		hanleAddToFavorites,
 		handleShowMore,
+		isLoading,
+		isError,
 	} = useCampersList();
+
+	if (isError) {
+		return <ErrorMessage />;
+	}
+
+	if (isLoading) {
+		return <Spinner />;
+	}
 
 	if (!visibleCampers.length) {
 		return null;
@@ -21,12 +32,7 @@ const CampersList = () => {
 		<div className={css.campersListHolder}>
 			<ul className={css.campersList}>
 				{visibleCampers.map(camper => (
-					<CampersListItem
-						key={camper.id}
-						hanleAddToFavorites={hanleAddToFavorites}
-						handleShowMore={handleShowMore}
-						{...camper}
-					/>
+					<CampersListItem key={camper.id} handleShowMore={handleShowMore} {...camper} />
 				))}
 			</ul>
 			{loadMoreButtonVisibility && (
