@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -15,14 +15,8 @@ import Reviews from '@/components/Reviews';
 import css from './CamperPage.module.css';
 
 const tabs = [
-	{
-		id: 'features',
-		title: 'Features',
-	},
-	{
-		id: 'reviews',
-		title: 'Reviews',
-	},
+	{ id: 'features', title: 'Features' },
+	{ id: 'reviews', title: 'Reviews' },
 ];
 
 const CamperPage = () => {
@@ -33,6 +27,8 @@ const CamperPage = () => {
 	const isError = useSelector(selectCamperError);
 
 	const [activeTab, setActiveTab] = useState('features');
+
+	const reviewsRef = useRef(null);
 
 	useEffect(() => {
 		dispatch(fetchCamper(id));
@@ -57,11 +53,20 @@ const CamperPage = () => {
 	const { name, price, rating, reviews, location, gallery, description, equipment, details } =
 		camper;
 
+	const handleReviewsClick = () => {
+		setActiveTab('reviews');
+		setTimeout(() => {
+			reviewsRef.current?.scrollIntoView({ behavior: 'smooth' });
+		}, 100);
+	};
+
 	return (
 		<div className={css.container}>
 			<CamperHeader
 				{...{ name, price, rating, reviews: reviews.length, location, detailsPage: true }}
+				onReviewsClick={handleReviewsClick}
 			/>
+
 			{gallery?.length > 0 && (
 				<ul className={css.gallery}>
 					{gallery.map(({ thumb }, index) => (
@@ -78,11 +83,18 @@ const CamperPage = () => {
 					))}
 				</ul>
 			)}
+
 			<p className={css.description}>{description}</p>
+
 			<Tabs tabs={tabs} onTabClick={setActiveTab} activeTabId={activeTab} />
+
 			<div className={css.contentHolder}>
 				{activeTab === 'features' && <VehicleDetails {...{ equipment, details }} />}
-				{activeTab === 'reviews' && <Reviews reviews={reviews} />}
+				{activeTab === 'reviews' && (
+					<div ref={reviewsRef}>
+						<Reviews reviews={reviews} />
+					</div>
+				)}
 				<BookingForm />
 			</div>
 		</div>
